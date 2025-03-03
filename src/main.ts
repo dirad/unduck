@@ -7,25 +7,26 @@ function noSearchDefaultPageRender() {
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
       <div class="content-container">
         <h1>Und*ck</h1>
-        <p>DuckDuckGo's bang redirects are too slow. Add the following URL as a custom search engine to your browser. Enables <a href="https://duckduckgo.com/bang.html" target="_blank">all of DuckDuckGo's bangs.</a></p>
+        <p>ddg's !bang redirects but fast.<br><br><a href="https://duckduckgo.com/bang.html" target="_blank">all of DuckDuckGo's bangs.</a></p>
         <div class="url-container"> 
           <input 
             type="text" 
             class="url-input"
-            value="https://unduck.link?q=%s"
-            readonly 
+            value="http://localhost?q=%s"
+            
           />
           <button class="copy-button">
             <img src="/clipboard.svg" alt="Copy" />
           </button>
+          
+          <input class="search-button" type="submit" value="search" />
         </div>
       </div>
       <footer class="footer">
         <a href="https://t3.chat" target="_blank">t3.chat</a>
         •
-        <a href="https://x.com/theo" target="_blank">theo</a>
         •
-        <a href="https://github.com/t3dotgg/unduck" target="_blank">github</a>
+        <a href="https://github.com/dirad/unduck" target="_blank">github</a>
       </footer>
     </div>
   `;
@@ -33,6 +34,7 @@ function noSearchDefaultPageRender() {
   const copyButton = app.querySelector<HTMLButtonElement>(".copy-button")!;
   const copyIcon = copyButton.querySelector("img")!;
   const urlInput = app.querySelector<HTMLInputElement>(".url-input")!;
+  const searchBtn = app.querySelector<HTMLInputElement>(".search-button")!;
 
   copyButton.addEventListener("click", async () => {
     await navigator.clipboard.writeText(urlInput.value);
@@ -42,6 +44,12 @@ function noSearchDefaultPageRender() {
       copyIcon.src = "/clipboard.svg";
     }, 2000);
   });
+
+
+  searchBtn.addEventListener("click", async () => {
+    window.location.href = '?q='+urlInput.value ;
+    }
+  );
 }
 
 const LS_DEFAULT_BANG = localStorage.getItem("default-bang") ?? "ddg";
